@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-
+    xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEp
+    DL9wQ=="
+        crossorigin=""/>
+    
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-
+    gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0C
+    Pthew=="
+        crossorigin=""></script>
+
+    <script src="./data/davis_library.geojson"></script>
+    <script src="./data/bell_tower.geojson"></script>
+    <script src="./data/kenan_stadium.geojson"></script>
+
+
+<head>
+<body>
+    <div id="mapid"></div>
+    <style>
+        #mapid{ width: 1250px; height: 550px; }
+    </style>
+
+    <script>
+        var map =  L.map('mapid').setView([35.91, -79.05], 17);
+            // you can set the zoom
+            L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {})
+                .addTo(map);
+            
+            L.marker([35.9110, -79.0481]).addTo(map)
+                .bindPopup('Davis Library') // YOU CAN CHANGE THE MESSAGE
+                .openPopup();
+
+            L.marker([35.9086, -79.0492]).addTo(map)
+                .bindPopup('Bell Tower')
+                .openPopup();
+
+            L.marker([35.9070, -79.0479]).addTo(map)
+                .bindPopup('Kenan Football Stadium')
+                .openPopup();
+
+            var davisIcon = L.icon({
+                iconUrl: 'https://e7.pngegg.com/pngimages/715/971/png-clipart-book-stack-book-reading-library-icon-books-blue-angle.png',
+                iconSize: [50,50],
+                popupAnchor: [0,0]
+            });
+
+            var bellIcon = L.icon({
+                iconUrl: 'https://ih1.redbubble.net/image.950768083.1425/st,small,507x507-pad,600x600,f8f8f8.jpg',
+                iconSize: [50,50],
+                popupAnchor: [0,0]
+            });
+
+            var kenanIcon = L.icon({
+                iconUrl: 'https://c8.alamy.com/comp/H2CY14/american-football-stadium-birds-eye-view-icon-blue-frame-design-vector-H2CY14.jpg',
+                iconSize: [50,50],
+                popupAnchor: [0,0]
+            });
+
+            var davisPopup =  "This is Davis Library, the central library for the Chapel Hill Campus<br/><img src='https://1.bp.blogspot.com/-jTbMtJpJoDo/T66EnKPBIBI/AAAAAAAACQM/iu-YiZGAQfs/s1600/DSC01232.JPG'width='100px'/>";
+            var bellPopup =  "This is the UNC Bell Tower, a 172ft functioning clock<br/><img src='https://upload.wikimedia.org/wikipedia/commons/e/ea/Bell_tower_in_Chapel_Hill_%28cropped%29.jpg'width='100px'/>";
+            var kenanPopup =  "This is UNC's football stadium, it opened in 1927 and can hold approximately 50,000<br/><img src='https://goheels.com/images/2012/3/13/YWLAMWASJICPMDM.20120313041210.jpg'width='100px'/>";
+
+        
+            L.geoJSON(davis_library, {
+                pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: davisIcon});}})
+                .bindPopup(davisPopup)
+                .addTo(map);
+            
+            L.geoJSON(bell_tower, {
+                pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: bellIcon});}})
+                .bindPopup(bellPopup)
+                .addTo(map);
+
+            L.geoJSON(kenan_stadium, {
+                pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: kenanIcon});}})
+                .bindPopup(kenanPopup)
+                .addTo(map);
+
+
+    </script>
+    This is my first Leaflet map
+
+</body>
+</html>
