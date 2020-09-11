@@ -22,21 +22,42 @@
        height: 100%;
     }
   </style>
+
+  <script src="data/jockeys-ridge.geojson"></script>
+
 </head>
 <body>
   <div id="map"></div>
   <script>
       var map = L.map('map').setView([35.9720058862133, -75.65384750537223], 14.0);
+       
+
+      var jockeyIcon = L.icon({
+                iconUrl: 'https://coastalcottageobx.com/wp-content/uploads/2017/01/Pinterest-2.jpg',
+                iconSize: [40,40],
+                popupAnchor: [0,0]
+      });
+      var canalIcon = L.icon({
+                iconUrl: 'https://c8.alamy.com/comp/J34JXH/beach-house-icon-J34JXH.jpg',
+                iconSize: [40,40],
+                popupAnchor: [0,0]
+      });
+      var schoolIcon = L.icon({
+                iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png',
+                iconSize: [40,40],
+                popupAnchor: [0,0]
+      });
       
-      var daMarker = L.marker([35.9703,-75.6437]).addTo(map)
-                      .bindPopup('Change')
-                      .openPopup()
-                      L.marker([35.9903,-75.6437]).addTo(map)
-                      .bindPopup('Change1')
-                      .openPopup()
+      
+      var daMarker1 = L.marker([35.97328,-75.64165], {icon: jockeyIcon});
+      daMarker1.bindPopup("Jockey's Ridge Park has significantly shrunk in size over the decades, especially in its northern area<br/><img src='https://d3m7xw68ay40x8.cloudfront.net/assets/2013/01/01150605/Jockeys-Ridge-6x-1024x683.png'width='150px'/>").openPopup();
+      var daMarker2 = L.marker([35.941846,-75.622707], {icon: canalIcon});
+      daMarker2.bindPopup("Several more canals were dug to support the growing population in this neighborhood<br/><img src='https://p.rdcpix.com/v01/l3088fc43-m1xd-w1020_h770_q80.jpg'width='150px'/>").openPopup();
+      var daMarker3 = L.marker([35.975968,-75.638532], {icon: schoolIcon});
+      daMarker3.bindPopup("A large new elementary school was built here because of a population explosion around the newly developed area<br/><img src='https://resources.finalsite.net/images/f_auto,q_auto/v1563825308/darek12ncus/rbiv2rscvqikqyz9raji/KHESThumbnail.png'width='150px'/>").openPopup();
 
 
-      
+
       var Wikimedia = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
 	      attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
 	      minZoom: 1,
@@ -56,7 +77,10 @@
       }
       
       var daVectors = {
-        "The coordinate": daMarker
+        "Jockey's Ridge": daMarker1,
+        "New Neighborhood Canals": daMarker2,
+        "New School": daMarker3
+    
       }
       
       L.control.layers(daTiles, daVectors).addTo(map);
